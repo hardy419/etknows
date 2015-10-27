@@ -17,7 +17,7 @@ if (isset ($_COOKIE[$Hardy_config['project_name']])) {
     $model = Hardy_get_class('user', 'model');
     $model->connect();
     $user_info = $model->get_user ($_COOKIE[$Hardy_config['project_name']]);
-    if ($_COOKIE[$Hardy_config['project_name'].'_session'] != $user_info['sid']) {
+    if (null == $user_info || $_COOKIE[$Hardy_config['project_name'].'_session'] != $user_info['sid']) {
         // Session ID mismatch
         $controller = Hardy_get_class('index', 'controller');
         $controller->message ('警告: 会话ID不匹配, 有可能账号在其他地方登录, 请重新登录', $Hardy_config['base_url']);
