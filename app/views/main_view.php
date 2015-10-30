@@ -1,12 +1,5 @@
-<!DOCTYPE html>
-<html>
-	<head>
-		<meta http-equiv="content-type" content="text/html;charset=utf-8">
-		<meta http-equiv="X-UA-Compatible" content="IE=Edge">
-		<title>Test</title>
-	</head>
-	<body onload=document.f.content.focus()>
-		
+<?PHP include $Hardy_config['view_dir'].'header_view.php'; ?>
+
 <?php
 if(isset($this->data['user'])) {
 ?>
@@ -68,7 +61,6 @@ if(isset($this->data['user'])) {
 			<input type="button" onclick="submit_form();" value="提交"></input><br/>
 		</form>
 
-<script src="public/js/jquery-1.8.2.min.js"></script>
 <script src="public/js/jquery.form.js"></script>
 <script>
   function submit_form(){
@@ -92,5 +84,4 @@ if(isset($this->data['user'])) {
   }
 </script>
 
-	</body>
-</html>
+<?PHP include $Hardy_config['view_dir'].'footer_view.php'; ?>

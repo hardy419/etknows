@@ -8,11 +8,7 @@ class index_controller extends base_controller
         
         // Retrieve user name
         if (isset ($_COOKIE[$Hardy_config['project_name']])) {
-            $this->model = Hardy_get_class('user', 'model');
-            $this->model->connect();
-            $user_info = $this->model->get_user ($_COOKIE[$Hardy_config['project_name']]);
-            $this->data['user'] = $user_info['username'];
-            $this->model->close();
+            $this->data['user'] = $this->data['user_info']['username'];
         }
 
         // Retrieve posts
@@ -37,15 +33,8 @@ class index_controller extends base_controller
         $file_pic = '';
         $file_audio = '';
 
-        $user_info = null;
-
         // Retrieve user info
         if (isset ($_COOKIE[$Hardy_config['project_name']])) {
-            $this->model = Hardy_get_class('user', 'model');
-            $this->model->connect();
-            $user_info = $this->model->get_user ($_COOKIE[$Hardy_config['project_name']]);
-            $this->model->close();
-
             // File uploading
             $audioname = '';
             $picname = '';
@@ -90,8 +79,8 @@ class index_controller extends base_controller
                 $file_pic,
                 $file_audio,
                 $_POST['content'],
-                (null !== $user_info) ? $user_info['username'] : '匿名',
-                (null !== $user_info) ? $user_info['id'] : 0
+                (null !== $this->data['user_info']) ? $this->data['user_info']['username'] : '匿名',
+                (null !== $this->data['user_info']) ? $this->data['user_info']['id'] : 0
             );
         }
         $this->model->close();

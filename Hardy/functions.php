@@ -20,4 +20,13 @@ function Hardy_get_class($name, $type='controller')
 	return $Hardy_classes[$class_name];
 }
 
+function Hardy_message ($msg, $retUrl)
+{
+	global $Hardy_config;
+    require $Hardy_config['view_dir'].'header_view.php';
+    echo "<p><strong>{$msg}</strong></p>";
+    echo "<a href=\"{$retUrl}\" name=\"return\">点此返回...</a>";
+    require $Hardy_config['view_dir'].'footer_view.php';
+}
+
 ?>
