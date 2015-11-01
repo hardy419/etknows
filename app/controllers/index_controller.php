@@ -13,10 +13,8 @@ class index_controller extends base_controller
 
         // Retrieve posts
         $this->model = Hardy_get_class('post', 'model');
-        $this->model->connect();
         $this->data['data'] = $this->model->get_posts();
         $this->data['rootUrl'] = $Hardy_config['base_url'];
-        $this->model->close();
 
         // Rendering
         require $Hardy_config['view_dir'].'main_view.php';
@@ -72,7 +70,6 @@ class index_controller extends base_controller
 
         // New post
         $this->model = Hardy_get_class('post', 'model');
-        $this->model->connect();
         if(isset($_POST['content'])) {
             $this->model->new_post(
                 $_POST['subject'],
@@ -83,7 +80,6 @@ class index_controller extends base_controller
                 (null !== $this->data['user_info']) ? $this->data['user_info']['id'] : 0
             );
         }
-        $this->model->close();
 
         // Return json result
         echo $arr['msg'];//echo json_encode ($arr);

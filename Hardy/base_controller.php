@@ -14,7 +14,6 @@ class base_controller
         // Check session
         if (isset ($_COOKIE[$Hardy_config['project_name']])) {
             $user_model = Hardy_get_class('user', 'model');
-            $user_model->connect();
             $this->data['user_info'] = $user_model->get_user ($_COOKIE[$Hardy_config['project_name']]);
             if (null == $this->data['user_info'] || $_COOKIE[$Hardy_config['project_name'].'_session'] != $this->data['user_info']['sid']) {
                 // Session ID mismatch
@@ -22,10 +21,8 @@ class base_controller
                 setcookie($Hardy_config['project_name'], null);
                 setcookie($Hardy_config['project_name'].'_session', null);
                 ob_end_flush();
-                $user_model->close();
                 die ();
             }
-            $user_model->close();
         }
     }
 

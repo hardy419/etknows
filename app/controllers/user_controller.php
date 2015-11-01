@@ -21,7 +21,6 @@ class user_controller extends base_controller
         global $Hardy_config;
         
         $this->model = Hardy_get_class('user', 'model');
-        $this->model->connect();
         
         $this->data['message'] = $this->model->login ($_POST["user"], $_POST["password"]);
         if (is_array ($this->data['message'])) {
@@ -39,7 +38,6 @@ class user_controller extends base_controller
             $this->data['message'] = $this->success_msg;
             header ('Location: '.$Hardy_config['base_url']);
         }
-        $this->model->close ();
         
         $this->data['retUrl'] = $Hardy_config['base_url'];
 
@@ -53,7 +51,6 @@ class user_controller extends base_controller
         if(isset($_POST['register_name']))
         {
             $this->model = Hardy_get_class('user', 'model');
-            $this->model->connect();
             
             if($this->model->check_existence($_POST['register_name']))
             {
@@ -79,7 +76,6 @@ class user_controller extends base_controller
                 $this->data['retUrl'] = $Hardy_config['base_url'];
             }
             
-            $this->model->close();
             
             require $Hardy_config['view_dir'].'message_view.php';
             return;
