@@ -36,10 +36,10 @@ class user_controller extends base_controller
             $this->model->update_session($uid, $sessionID, $datetime);
             
             $this->data['message'] = $this->success_msg;
-            header ('Location: '.$Hardy_config['base_url']);
+            header ('Location: http://'.$_SERVER['HTTP_HOST'].$_POST['retUrl']);
         }
         
-        $this->data['retUrl'] = $Hardy_config['base_url'];
+        $this->data['retUrl'] = 'http://'.$_SERVER['HTTP_HOST'].$_POST['retUrl'];
 
         require $Hardy_config['view_dir'].'message_view.php';
     }
@@ -93,9 +93,7 @@ class user_controller extends base_controller
         setcookie($Hardy_config['project_name'], null);
         setcookie($Hardy_config['project_name'].'_session', null);
         $this->data['message'] = '你已经成功登出！';
-        $this->data['retUrl'] = $Hardy_config['base_url'];
-
-        require $Hardy_config['view_dir'].'message_view.php';
+        header ('Location: http://'.$_SERVER['HTTP_HOST'].$_GET['retUrl']);
     }
 }
 
