@@ -43,7 +43,7 @@ if(isset($this->data['user'])) {
 <script>
   function submit_form(){
     $("#form-post").ajaxSubmit({
-      url: '<?php echo $this->data['rootUrl'].'?r=index/post'; ?>',
+      url: '<?php echo $this->data['rootUrl'].'?r=post/post'; ?>',
         //dataType:  'json',
         beforeSend: function() {
           $(".percent").html("上传中...");
