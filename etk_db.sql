@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- 主机: localhost
--- 生成日期: 2015 年 10 月 23 日 11:48
+-- 生成日期: 2015 年 11 月 17 日 09:03
 -- 服务器版本: 5.5.24-log
 -- PHP 版本: 5.3.13
 
@@ -19,6 +19,32 @@ SET time_zone = "+00:00";
 --
 -- 数据库: `etk_db`
 --
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `etk_comment`
+--
+
+CREATE TABLE IF NOT EXISTS `etk_comment` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `post_id` int(11) NOT NULL,
+  `comment_id` int(11) NOT NULL,
+  `subject` varchar(255) NOT NULL,
+  `content` varchar(1000) NOT NULL,
+  `file_pic` varchar(255) NOT NULL,
+  `file_audio` varchar(255) NOT NULL,
+  `info` varchar(255) NOT NULL,
+  `status` int(11) NOT NULL,
+  `addtime` datetime NOT NULL,
+  `user` varchar(50) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `POST_ID` (`post_id`),
+  KEY `COMMENT_ID` (`comment_id`),
+  KEY `STATUS` (`status`),
+  KEY `USERID` (`user_id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 ;
 
 -- --------------------------------------------------------
 
@@ -40,21 +66,7 @@ CREATE TABLE IF NOT EXISTS `etk_post` (
   PRIMARY KEY (`id`),
   KEY `STATUS` (`status`),
   KEY `USERID` (`user_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=9 ;
-
---
--- 转存表中的数据 `etk_post`
---
-
-INSERT INTO `etk_post` (`id`, `subject`, `content`, `file_pic`, `file_audio`, `info`, `status`, `addtime`, `user`, `user_id`) VALUES
-(1, '标题测试', 'hahaha...\r\nhaha', '', '', '', 0, '2010-02-04 04:37:06', '匿名', 0),
-(2, '', 'yes', '', '', '', 0, '2010-02-04 04:37:46', '匿名', 0),
-(3, '', 'yes, i''ve logged in', '', '', '', 0, '2010-02-04 04:39:03', 'hardy419', 0),
-(4, '', 'and now, go to bed', '', '', '', 0, '2010-02-04 04:40:49', 'hardy419', 0),
-(5, '', '大家好，我是管理猿！', '', '', '', 0, '2010-02-04 07:21:03', 'admin', 0),
-(6, '', '...', '', '', '', 0, '2010-02-04 08:16:15', '匿名', 0),
-(7, 'TEST', 'test content', '', '', '', 0, '2015-10-23 11:26:31', '匿名', 0),
-(8, '测试', '登陆标题测试', '', '', '', 0, '2015-10-23 11:43:40', 'hardy', 1);
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 ;
 
 -- --------------------------------------------------------
 

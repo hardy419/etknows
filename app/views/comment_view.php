@@ -7,11 +7,24 @@
 
 <a href="<?php echo $this->data['rootUrl']; ?>">返回首页</a>
 
+<!-- Post -->
+<?PHP
+echo "<hr/><br/>";
+echo $this->data['post']['user'].":&nbsp;<b>".$this->data['post']['subject']."</b><br/><br/>";
+if (!empty($this->data['post']['file_audio'])) echo '<audio controls="controls"><source src="'.$this->data['post']['file_audio'].'" />浏览器不支持audio标签</audio><br/>';
+if (!empty($this->data['post']['file_pic'])) echo '<img src="'.$this->data['post']['file_pic'].'" /><br/>';
+echo "&nbsp;&nbsp;&nbsp;&nbsp;".$this->data['post']['content']."<br/>";
+echo "<div align=right>".$this->data['post']['addtime']."</div>";
+echo "<br/><hr/><br/>";
+?>
+<br/>
+
+<!-- Comments -->
 <?php
 
 foreach($this->data['data'] as $idx=>$dat) {
 	echo "<hr/><br/>";
-	echo $dat['user'].':&nbsp;<a href="'.$this->data['rootUrl'].'?r=comment&pid='.$dat['id'].'"><b>'.$dat['subject'].'</b></a><br/><br/>';
+	echo $dat['user'].":<br/><br/>";
 	if (!empty($dat['file_audio'])) echo '<audio controls="controls"><source src="'.$dat['file_audio'].'" />浏览器不支持audio标签</audio><br/>';
 	if (!empty($dat['file_pic'])) echo '<img src="'.$dat['file_pic'].'" /><br/>';
 	echo "&nbsp;&nbsp;&nbsp;&nbsp;".$dat['content']."<br/>";
@@ -36,14 +49,14 @@ if(isset($this->data['user'])) {
 ?>
 			<input type="text" name="subject" placeholder="标题"><br/><br/>
 			<textarea name="content" rows="4" cols="60" placeholder="内容"></textarea><br/><br/>
-			<input type="button" onclick="submit_form();" value="提交"></input><br/>
+			<input type="button" onclick="submit_form();" value="回复"></input><br/>
 		</form>
 
 <script src="public/js/jquery.form.js"></script>
 <script>
   function submit_form(){
     $("#form-post").ajaxSubmit({
-      url: '<?php echo $this->data['rootUrl'].'?r=post/post'; ?>',
+      url: '<?php echo $this->data['rootUrl'].'?r=post/post&pid='.$this->data['post_id']; ?>',
         //dataType:  'json',
         beforeSend: function() {
           $(".percent").html("上传中...");

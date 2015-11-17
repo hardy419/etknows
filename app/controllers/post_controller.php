@@ -25,6 +25,15 @@ class post_controller extends base_controller
     {
         global $Hardy_config;
 
+        if (empty ($_POST['content']) && !isset ($_FILES['file-audio']) && !isset ($_FILES['file-pic'])) {
+            echo '请输入内容';
+            return;
+        }
+        if (empty ($_POST['subject']) && !isset ($_GET['pid']) && !isset ($_GET['cid'])) {
+            echo '请输入标题';
+            return;
+        }
+
         $arr = array(
           'msg'=>'提交成功'
         );
@@ -71,15 +80,33 @@ class post_controller extends base_controller
 
         // New post
         $this->model = Hardy_get_class('post', 'model');
-        if(isset($_POST['content'])) {
-            $this->model->new_post(
-                $_POST['subject'],
-                $file_pic,
-                $file_audio,
-                $_POST['content'],
-                (null !== $this->data['user_info']) ? $this->data['user_info']['username'] : '匿名',
-                (null !== $this->data['user_info']) ? $this->data['user_info']['id'] : 0
-            );
+        if (!isset ($_GET['pid']) && !isset ($_GET['cid'])) {
+            if(isset($_POST['content'])) {
+                $this->model->new_post(
+                    $_POST['subject'],
+                    $file_pic,
+                    $file_audio,
+                    $_POST['content'],
+                    (null !== $this->data['user_info']) ? $this->data['user_info']['username'] : '匿名',
+                    (null !== $this->data['user_info']) ? $this->data['user_info']['id'] : 0
+                );
+            }
+        }
+        else {
+            $post_id = isset ($_GET['pid']) ? $_GET['pid'] : 0;
+            $comment_id = isset ($_GET['cid']) ? $_GET['cid'] : 0;
+            if(isset($_POST['content'])) {
+                $this->model->new_comment(
+                    $post_id,
+                    $comment_id,
+                    $_POST['subject'],
+                    $file_pic,
+                    $file_audio,
+                    $_POST['content'],
+                    (null !== $this->data['user_info']) ? $this->data['user_info']['username'] : '匿名',
+                    (null !== $this->data['user_info']) ? $this->data['user_info']['id'] : 0
+                );
+            }
         }
 
         // Return json result
