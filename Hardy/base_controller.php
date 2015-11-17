@@ -23,6 +23,8 @@ class base_controller
                 ob_end_flush();
                 die ();
             }
+            // For login view
+            $this->data['user'] = $this->data['user_info']['username'];
         }
     }
 

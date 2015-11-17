@@ -55,12 +55,12 @@ class user_controller extends base_controller
             if($this->model->check_existence($_POST['register_name']))
             {
                 $this->data['message'] = '该用户名已存在！';
-                $this->data['retUrl'] = $Hardy_config['base_url'].'?r=user/register';
+                $this->data['retUrl'] = 'http://'.$_SERVER['HTTP_HOST'].$_POST['retUrl'];
             }
             elseif($_POST['register_password'] !== $_POST['register_password_again'])
             {
                 $this->data['message'] = '两次输入的密码不一致！';
-                $this->data['retUrl'] = $Hardy_config['base_url'].'?r=user/register';
+                $this->data['retUrl'] = 'http://'.$_SERVER['HTTP_HOST'].$_POST['retUrl'];
             }
             else
             {
@@ -73,7 +73,7 @@ class user_controller extends base_controller
                                         '',
                                         '');
                 $this->data['message'] = '感谢你的注册，你现在可以使用注册的用户名登录BBS！';
-                $this->data['retUrl'] = $Hardy_config['base_url'];
+                $this->data['retUrl'] = 'http://'.$_SERVER['HTTP_HOST'].$_POST['retUrl'];
             }
             
             

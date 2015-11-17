@@ -5,11 +5,6 @@ class post_controller extends base_controller
     public function index()
     {
         global $Hardy_config;
-        
-        // Retrieve user name
-        if (isset ($_COOKIE[$Hardy_config['project_name']])) {
-            $this->data['user'] = $this->data['user_info']['username'];
-        }
 
         // Retrieve posts
         $this->model = Hardy_get_class('post', 'model');
