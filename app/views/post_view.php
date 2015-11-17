@@ -3,10 +3,14 @@
 <?PHP include $Hardy_config['view_dir'].'login_view.php'; ?>
 <?PHP include $Hardy_config['view_dir'].'register_view.php'; ?>
 
+<?PHP include $Hardy_config['view_dir'].'search_view.php'; ?>
+
+<a href="<?php echo $this->data['rootUrl']; ?>">返回首页</a>
+
 <?php
 
 foreach($this->data['data'] as $idx=>$dat) {
-	if (0 == $idx) {
+	if (0 <= $idx) {
 		$subject = '&nbsp;<b>'.$dat['subject'].'</b>';
 	}
 	else {

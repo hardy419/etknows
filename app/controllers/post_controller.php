@@ -7,8 +7,14 @@ class post_controller extends base_controller
         global $Hardy_config;
 
         // Retrieve posts
+        if (isset ($_POST['keyword'])) {
+            $keyword = $_POST['keyword'];
+        }
+        else {
+            $keyword = null;
+        }
         $this->model = Hardy_get_class('post', 'model');
-        $this->data['data'] = $this->model->get_posts();
+        $this->data['data'] = $this->model->get_posts($keyword);
         $this->data['rootUrl'] = $Hardy_config['base_url'];
 
         // Rendering

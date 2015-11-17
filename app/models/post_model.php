@@ -20,9 +20,16 @@ class post_model extends Hardy_mysql_handler
         $uid = mysql_escape_string($uid);
         $this->query ("INSERT INTO etk_post (subject, content, file_pic, file_audio, addtime, user, user_id) VALUES('$subject', '$content', '$file_pic', '$file_audio', '".date("Y-m-d H:i:s")."', '$username', $uid)");
     }
-    public function get_posts()
+    public function get_posts($keyword)
     {
-        return $this->query ("SELECT * FROM etk_post WHERE status=0 OR status=1");
+        if (null !== $keyword) {
+            $keyword = mysql_escape_string ($keyword);
+            $q = "SELECT * FROM etk_post WHERE (status=0 OR status=1) AND (subject LIKE '%{$keyword}%' OR content LIKE '%{$keyword}%')";
+        }
+        else {
+            $q = "SELECT * FROM etk_post WHERE status=0 OR status=1";
+        }
+        return $this->query ($q);
     }
 }
 
